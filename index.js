@@ -237,6 +237,9 @@ app.route("/user")
     })
 
     .post(function (req, res) {
+        if(req.body.userName == "" || req.body.password == ""){
+            res.send("error in json format");
+        }
         var hashedPassword = "";
         bcrypt.genSalt(saltRounds, function (err1, salt) {
             if (err1) {
