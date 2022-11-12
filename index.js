@@ -41,12 +41,12 @@ const HotelSchema = new mongoose.Schema({
         },
         beverage: {
             drink1: {
-                foodname : String,
-                price : Number
+                foodname: String,
+                price: Number
             },
             drink2: {
-                foodname : String,
-                price : Number
+                foodname: String,
+                price: Number
             }
         }
     }
@@ -92,22 +92,22 @@ app.route("/hotel")
                 },
                 meals: {
                     meal1: {
-                        foodname : req.body.food[1].meals.meal1.foodname,
-                        price : req.body.food[1].meals.meal1.price
+                        foodname: req.body.food[1].meals.meal1.foodname,
+                        price: req.body.food[1].meals.meal1.price
                     },
                     meal2: {
-                        foodname : req.body.food[1].meals.meal2.foodname,
-                        price : req.body.food[1].meals.meal2.price
+                        foodname: req.body.food[1].meals.meal2.foodname,
+                        price: req.body.food[1].meals.meal2.price
                     }
                 },
                 beverage: {
                     drink1: {
-                        foodname : req.body.food[2].beverage.drink1.foodname,
-                        price : req.body.food[2].beverage.drink1.price
+                        foodname: req.body.food[2].beverage.drink1.foodname,
+                        price: req.body.food[2].beverage.drink1.price
                     },
                     drink2: {
-                        foodname : req.body.food[2].beverage.drink1.foodname,
-                        price : req.body.food[2].beverage.drink1.price
+                        foodname: req.body.food[2].beverage.drink1.foodname,
+                        price: req.body.food[2].beverage.drink1.price
                     }
                 }
             }
@@ -166,22 +166,22 @@ app.route("/hotel/:hotelname")
                     },
                     meals: {
                         meal1: {
-                            foodname : req.body.food[1].meals.meal1.foodname,
-                            price : req.body.food[1].meals.meal1.price
+                            foodname: req.body.food[1].meals.meal1.foodname,
+                            price: req.body.food[1].meals.meal1.price
                         },
                         meal2: {
-                            foodname : req.body.food[1].meals.meal2.foodname,
-                            price : req.body.food[1].meals.meal2.price
+                            foodname: req.body.food[1].meals.meal2.foodname,
+                            price: req.body.food[1].meals.meal2.price
                         }
                     },
                     beverage: {
                         drink1: {
-                            foodname : req.body.food[2].beverage.drink1.foodname,
-                            price : req.body.food[2].beverage.drink1.price
+                            foodname: req.body.food[2].beverage.drink1.foodname,
+                            price: req.body.food[2].beverage.drink1.price
                         },
                         drink2: {
-                            foodname : req.body.food[2].beverage.drink1.foodname,
-                            price : req.body.food[2].beverage.drink1.price
+                            foodname: req.body.food[2].beverage.drink1.foodname,
+                            price: req.body.food[2].beverage.drink1.price
                         }
                     }
                 }
@@ -237,7 +237,7 @@ app.route("/user")
     })
 
     .post(function (req, res) {
-        if(req.body.userName == "" || req.body.password == ""){
+        if (req.body.userName == "" || req.body.password == "") {
             res.send("error in json format");
         }
         var hashedPassword = "";
@@ -282,21 +282,27 @@ app.route("/user")
 
 // verify the users
 app.post("/user/verify", function (req, res) {
-    User.findOne({ userName: req.body.userName }, function (err, result) {
-        if (err) {
-            res.send("User not found ");
-        } else {
-            // res.send(result.password);
-            bcrypt.compare(req.body.password, result.password, function (err, response) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.send(response);
-                }
-            })
-        }
+    if (Object.keys(req.body).length === 0) {
+        res.send("error in format");
+    }
+    else {
 
-    })
+        User.findOne({ userName: req.body.userName }, function (err, result) {
+            if (err) {
+                res.send("User not found ");
+            } else {
+                // res.send(result.password);
+                bcrypt.compare(req.body.password, result.password, function (err, response) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send(response);
+                    }
+                })
+            }
+
+        })
+    }
 });
 
 
