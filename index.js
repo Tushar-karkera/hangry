@@ -282,21 +282,31 @@ app.route("/user")
 
 // verify the users
 app.post("/user/verify", function (req, res) {
+    console.log("got a request!!!! "+req.body);
     if (Object.keys(req.body).length === 0) {
-        res.send("error in format");
+        res.send("error in format ");
+    }
+    else if(req.body.userName == '' || req.body.password == ''){
+        res.send("error in format")
     }
     else {
 
         User.findOne({ userName: req.body.userName }, function (err, result) {
             if (err) {
                 res.send("User not found ");
+                console.log("user was found");
             } else {
                 // res.send(result.password);
                 bcrypt.compare(req.body.password, result.password, function (err, response) {
                     if (err) {
                         console.log(err);
+                        console.log("error occurred");
                     } else {
-                        res.send(response);
+                        obj = {
+                            "response" : response
+                        }
+                        res.send(obj);
+                        console.log(response);
                     }
                 })
             }
@@ -308,5 +318,5 @@ app.post("/user/verify", function (req, res) {
 
 
 app.listen(port, function () {
-    console.log("server has started ");
+    console.log("server has started on port "+port);
 });
