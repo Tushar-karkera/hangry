@@ -1,0 +1,57 @@
+/user
+
+get -> all the user info
+post -> save the data of a new user
+delete -> delete all the user
+
+
+********************************************************************************
+
+/user/verify
+
+post -> verify the user details posted and return response: true or false
+
+
+********************************************************************************
+
+/hoteluser
+
+get -> get all the hotel owners name
+post -> save the hotel owner details posted
+delete -> delete all the hotel owners
+
+
+********************************************************************************
+
+/hoteluser/verify
+
+post -> verify the hotel owners details posted and  return response: true or false
+
+********************************************************************************
+
+/food/:hotelname
+
+get -> get all the food items of the :hotename specified
+delete -> delete a specific food item of :hotelname and foodName in its body
+
+********************************************************************************
+
+/food
+
+post -> saves the food item details in the database
+
+********************************************************************************
+
+/placeorder
+
+post -> saves the food order details int the database
+
+********************************************************************************
+
+/order
+
+get -> gets all the orders in Order collection
+post -> gets all the details of the hotel sepcified in the body
+delete -> delete a order of a specified hotel and a customer
+
+********************************************************************************
