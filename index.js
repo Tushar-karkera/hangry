@@ -265,7 +265,11 @@ app.route("/food/:hotelname")
                 res.send(err);
             }
             if (foundHotel.length >0) {
-                res.send(foundHotel);
+
+                var obj = {
+                    "foodItems" : foundHotel
+                }
+                res.send(obj);
             } else {
                 res.send("No food found");
             }
@@ -323,10 +327,14 @@ app.route("/order")
         Order.find({},function(err,orders){
             if(err){
                 res.send("error occurred while searching orders")
-            }else if(orders == null){
+            }else if(!orders.length){
                 res.send("no orders found")
             }else{
-                res.send(orders)
+
+                var obj = {
+                    "orders" : orders
+                }
+                res.send(obj)
             }
         })
     })
