@@ -90,9 +90,15 @@ app.route("/user")
 
                         user.save(function (err) {
                             if (err) {
-                                res.send(err);
+                                obj = {
+                                    "response": err
+                                }
+                                res.send(obj);
                             } else {
-                                res.send("user saved successfully");
+                                obj = {
+                                    "response": "true"
+                                }
+                                res.send(obj);
                             }
                         })
                     }
@@ -126,11 +132,12 @@ app.post("/user/verify", function (req, res) {
 
         User.findOne({ userName: req.body.userName }, function (err, result) {
             if (err) {
-                res.send("User not found ");
+                obj = {
+                    "response": "false"
+                }
+                res.send(obj);
                 console.log("user was found");
             } else {
-                // res.send(result.password);
-                //console.log("password is "+result.password)
                 if (result == null) {
                     obj = {
                         "response": "false"
