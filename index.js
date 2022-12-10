@@ -61,7 +61,7 @@ const Order = mongoose.model("Order",order);
 
 app.route("/user")
     .get(function (req, res) {
-        User.findOne({}, function (err, response) {
+        User.find({}, function (err, response) {
             if (err) {
                 res.send(err);
             } else {
